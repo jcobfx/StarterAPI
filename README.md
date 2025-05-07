@@ -40,7 +40,15 @@ A simple Spring Boot starter project with JWT authentication.
     git clone https://github.com/jcobfx/StarterAPI.git
     cd StarterAPI
     ```
-2. Configure your database settings in `application.properties`.
+2. Configure your environment variables by creating `.env` file in the root directory of a cloned project.
+    ```dotenv
+    DB_URL=jdbc:postgresql://localhost:5432/your_database_name
+    DB_USERNAME=your_database_username
+    DB_PASSWORD=your_database_password
+    JWT_SECRET=your_jwt_secret_key
+    JWT_EXPIRATION=3600000 # 1 hour in milliseconds
+    ```
+   Make sure to replace `your_database_name`, `your_database_username`, `your_database_password`, and `your_jwt_secret_key` with your actual values.
 3. Run the application:
     ```bash
     ./mvnw spring-boot:run
