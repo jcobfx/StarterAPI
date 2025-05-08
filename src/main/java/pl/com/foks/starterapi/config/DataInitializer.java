@@ -4,10 +4,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.com.foks.starterapi.entity.Task;
-import pl.com.foks.starterapi.entity.User;
-import pl.com.foks.starterapi.repository.TaskRepository;
-import pl.com.foks.starterapi.repository.UserRepository;
+import pl.com.foks.starterapi.tasks.domain.Task;
+import pl.com.foks.starterapi.users.domain.User;
+import pl.com.foks.starterapi.tasks.domain.TaskRepository;
+import pl.com.foks.starterapi.users.domain.UserRepository;
 
 import java.time.LocalDate;
 

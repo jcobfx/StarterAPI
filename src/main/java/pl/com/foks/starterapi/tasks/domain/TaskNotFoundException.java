@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.exception;
+package pl.com.foks.starterapi.tasks.domain;
 
 public class TaskNotFoundException extends RuntimeException {
     public TaskNotFoundException(Long taskId) {

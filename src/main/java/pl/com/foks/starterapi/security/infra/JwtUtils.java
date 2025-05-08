@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.security;
+package pl.com.foks.starterapi.security.infra;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
@@ -58,7 +58,7 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String authToken) {
         try {
-            System.out.println("Validate");
+            log.debug("Validating JWT token: {}", authToken);
             Jwts.parser().verifyWith(key()).build().parseSignedClaims(authToken);
             return true;
         } catch (MalformedJwtException e) {
