@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.entity;
+package pl.com.foks.starterapi.tasks.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.com.foks.starterapi.users.domain.User;
 
 import java.time.LocalDateTime;
 
@@ -36,7 +37,7 @@ public class Task {
     private String description;
 
     @NotNull(message = "Due date cannot be null")
-    @Column(nullable = false)
+    @Column(name = "due_date", nullable = false)
     private LocalDateTime dueDate;
 
     @NotNull(message = "Created date cannot be null")

@@ -8,6 +8,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import pl.com.foks.starterapi.security.domain.InvalidCredentialsException;
+import pl.com.foks.starterapi.tasks.domain.TaskNotFoundException;
+import pl.com.foks.starterapi.users.domain.UserNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

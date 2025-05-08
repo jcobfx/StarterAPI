@@ -1,8 +1,7 @@
-package pl.com.foks.starterapi.repository;
+package pl.com.foks.starterapi.tasks.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.com.foks.starterapi.entity.Task;
-import pl.com.foks.starterapi.entity.User;
+import pl.com.foks.starterapi.users.domain.User;
 
 import java.util.List;
 import java.util.Optional;

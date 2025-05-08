@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.controller;
+package pl.com.foks.starterapi.tasks.web;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,15 +9,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.com.foks.starterapi.entity.Task;
-import pl.com.foks.starterapi.entity.User;
-import pl.com.foks.starterapi.service.TaskService;
-import pl.com.foks.starterapi.service.UserService;
+import pl.com.foks.starterapi.tasks.app.TaskService;
+import pl.com.foks.starterapi.tasks.domain.Task;
+import pl.com.foks.starterapi.users.domain.User;
+import pl.com.foks.starterapi.users.app.UserService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/api/v1/tasks")
 @Validated
 @Tag(name = "Tasks", description = "Operations on tasks")
 @RequiredArgsConstructor

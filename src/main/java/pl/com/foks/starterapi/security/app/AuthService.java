@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.service;
+package pl.com.foks.starterapi.security.app;
 
 
 import lombok.AllArgsConstructor;
@@ -11,17 +11,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.foks.starterapi.dto.AuthRequest;
-import pl.com.foks.starterapi.entity.User;
-import pl.com.foks.starterapi.repository.UserRepository;
-import pl.com.foks.starterapi.security.JwtUtils;
-import pl.com.foks.starterapi.exception.InvalidCredentialsException;
+import pl.com.foks.starterapi.security.dto.AuthRequest;
+import pl.com.foks.starterapi.users.app.UserService;
+import pl.com.foks.starterapi.users.domain.User;
+import pl.com.foks.starterapi.security.domain.InvalidCredentialsException;
+import pl.com.foks.starterapi.security.infra.JwtUtils;
 
 @Service
 @AllArgsConstructor
 public class AuthService {
-
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -30,8 +29,8 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     @Transactional
-    public String register(AuthRequest request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+    public void register(AuthRequest request) {
+        if (userService.existsByEmail(request.getEmail())) {
             throw new InvalidCredentialsException("Email already in use");
         }
         User user = User.builder()
@@ -40,12 +39,11 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("USER")
                 .build();
-        userRepository.save(user);
-        return "User registered successfully";
+        userService.create(user);
     }
 
     @Transactional(readOnly = true)
-    public String login(AuthRequest request) {
+    public String authorize(AuthRequest request) {
         Authentication authentication;
         try {
             authentication = authenticationManager

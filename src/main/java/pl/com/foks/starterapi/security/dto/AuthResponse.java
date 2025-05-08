@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.dto;
+package pl.com.foks.starterapi.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

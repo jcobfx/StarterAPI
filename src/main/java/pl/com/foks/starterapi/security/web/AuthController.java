@@ -1,4 +1,4 @@
-package pl.com.foks.starterapi.controller;
+package pl.com.foks.starterapi.security.web;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.com.foks.starterapi.dto.AuthRequest;
-import pl.com.foks.starterapi.dto.AuthResponse;
-import pl.com.foks.starterapi.service.AuthService;
+import pl.com.foks.starterapi.security.app.AuthService;
+import pl.com.foks.starterapi.security.dto.AuthRequest;
+import pl.com.foks.starterapi.security.dto.AuthResponse;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @Tag(name = "Authentication", description = "Operations for user authentication")
 @RequiredArgsConstructor
 public class AuthController {
@@ -21,14 +21,15 @@ public class AuthController {
 
     @Operation(summary = "Register a new user")
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
-        return new AuthResponse(authService.register(request));
+    public ResponseEntity<Void> register(@RequestBody AuthRequest request) {
+        authService.register(request);
+        return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Login an existing user")
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        String token = authService.login(request);
+    @Operation(summary = "Authorize an existing user")
+    @PostMapping
+    public ResponseEntity<AuthResponse> authorize(@RequestBody AuthRequest request) {
+        String token = authService.authorize(request);
         return ResponseEntity.ok(new AuthResponse(token));
     }
 }
