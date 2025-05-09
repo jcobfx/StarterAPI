@@ -3,6 +3,7 @@ package pl.com.foks.starterapi.users.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,10 +17,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class User {
+    @NotNull(message = "ID cannot be null")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long id;
+    private String id;
 
     @NotBlank(message = "Username cannot be blank")
     @Size(max = 50, message = "Username must be less than 50 characters")

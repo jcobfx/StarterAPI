@@ -3,6 +3,7 @@ package pl.com.foks.starterapi.security.web;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +22,9 @@ public class AuthController {
 
     @Operation(summary = "Register a new user")
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody AuthRequest request) {
-        authService.register(request);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> register(@RequestBody AuthRequest request) {
+        String id = authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
     @Operation(summary = "Authorize an existing user")

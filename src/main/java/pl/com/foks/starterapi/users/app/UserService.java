@@ -8,6 +8,8 @@ import pl.com.foks.starterapi.users.domain.UserExistsException;
 import pl.com.foks.starterapi.users.domain.UserNotFoundException;
 import pl.com.foks.starterapi.users.domain.UserRepository;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -25,9 +27,12 @@ public class UserService {
     }
 
     @Transactional
-    public User create(User user) {
+    public User createUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new UserExistsException(user.getEmail());
+        }
+        if (user.getId() == null || user.getId().isBlank()) {
+            user.setId(UUID.randomUUID().toString());
         }
         return userRepository.save(user);
     }

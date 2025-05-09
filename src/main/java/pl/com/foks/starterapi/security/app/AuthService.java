@@ -29,17 +29,17 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     @Transactional
-    public void register(AuthRequest request) {
-        if (userService.existsByEmail(request.getEmail())) {
+    public String register(AuthRequest request) {
+        if (userService.existsByEmail(request.email())) {
             throw new InvalidCredentialsException("Email already in use");
         }
         User user = User.builder()
-                .username(request.getUsername())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .username(request.username())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
                 .role("USER")
                 .build();
-        userService.create(user);
+        return userService.createUser(user).getId();
     }
 
     @Transactional(readOnly = true)
@@ -47,7 +47,7 @@ public class AuthService {
         Authentication authentication;
         try {
             authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+                    .authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
         } catch (AuthenticationException exception) {
             throw new InvalidCredentialsException("Invalid credentials");
         }

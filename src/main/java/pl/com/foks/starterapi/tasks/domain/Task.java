@@ -1,5 +1,6 @@
 package pl.com.foks.starterapi.tasks.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,12 +20,10 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class Task {
-
     @NotNull(message = "ID cannot be null")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long id;
+    private String id;
 
     @NotBlank(message = "Title cannot be blank")
     @Size(max = 100, message = "Title must be less than 100 characters")
@@ -43,5 +42,6 @@ public class Task {
     @NotNull(message = "Created date cannot be null")
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 }

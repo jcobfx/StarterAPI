@@ -1,10 +1,7 @@
 package pl.com.foks.starterapi.security.dto;
 
-import lombok.Data;
-
-@Data
-public class AuthRequest {
-    private String username;
-    private String email;
-    private String password;
-}
+public record AuthRequest(
+        String username,
+        String email,
+        String password
+) {}
